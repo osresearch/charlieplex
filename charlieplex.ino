@@ -77,16 +77,49 @@ decay(
 }
 
 
-void loop()
+void chase1(void)
+{
+	// "smooth" the x value across the leds
+	// not quite as nice as the frame buffer decay approach
+	for (int x = 0 ; x < 2048 ; x += 3)
+	{
+		for (int i = 0 ; i < NUM_LEDS ; i++)
+		{
+			int dx;
+			if (x > 1024 && i < NUM_LEDS/2)
+			{
+				dx = x - (i+NUM_LEDS) * 2048/NUM_LEDS;
+			} else {
+				dx = x - i * 2048/NUM_LEDS;
+			}
+			if (dx < 0)
+				dx = -dx;
+			dx /= 2;
+			if (dx > 255)
+				dx = 255;
+			fb[i] = 255 - dx;
+		}
+		draw();
+	}
+}
+
+
+void chase2()
 {
 	for(int i = 0 ; i < NUM_LEDS; i++)
 	{
-		for(int delay = 0 ; delay < 50 ; delay++)
+		for(int delay = 0 ; delay < 80 ; delay++)
 		{
 			if (fb[i] < 200)
-				fb[i] += 4;
+				fb[i] += 1;
 			draw();
-			decay(1);
+			if ((delay & 3) == 0)
+				decay(1);
 		}
 	}
+}
+
+void loop()
+{
+	chase2();
 }
