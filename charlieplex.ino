@@ -8,7 +8,8 @@
  */
 
 
-#define NUM_LEDS 6 // Maximum with 3 output pins
+//#define NUM_LEDS 6 // Maximum with 3 output pins
+#define NUM_LEDS 12 // Maximum with 4 output pins
 
 #define CHARLIE(pin_vcc, pin_gnd) \
 	{ 1 << (pin_vcc), 1 << (pin_gnd) }
@@ -20,6 +21,12 @@ static const uint8_t mux[NUM_LEDS][2] = {
 	CHARLIE(1,2),
 	CHARLIE(0,2),
 	CHARLIE(2,0),
+	CHARLIE(0,4),
+	CHARLIE(4,0),
+	CHARLIE(1,4),
+	CHARLIE(4,1),
+	CHARLIE(2,4),
+	CHARLIE(4,2),
 };
 
 void off()
