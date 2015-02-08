@@ -8,18 +8,24 @@
  */
 
 
-#define NUM_LEDS 6 // Maximum with 3 output pins
+#define NUM_LEDS 12 // Maximum with 3 output pins
 
 #define CHARLIE(pin_vcc, pin_gnd) \
 	{ 1 << (pin_vcc), 1 << (pin_gnd) }
 
 static const uint8_t mux[NUM_LEDS][2] = {
+	CHARLIE(1,2),
+	CHARLIE(2,1),
 	CHARLIE(0,1),
 	CHARLIE(1,0),
-	CHARLIE(2,1),
-	CHARLIE(1,2),
-	CHARLIE(0,2),
+	CHARLIE(4,1),
+	CHARLIE(1,4),
+	CHARLIE(0,4),
+	CHARLIE(4,0),
 	CHARLIE(2,0),
+	CHARLIE(0,2),
+	CHARLIE(4,2),
+	CHARLIE(2,4),
 };
 
 void off()
@@ -106,15 +112,15 @@ void chase1(void)
 
 void chase2()
 {
-	for(int i = 0 ; i < NUM_LEDS; i++)
+	for(uint8_t i = 0 ; i < NUM_LEDS; i++)
 	{
-		for(int delay = 0 ; delay < 80 ; delay++)
+		for(uint8_t delay = 0 ; delay < 40 ; delay++)
 		{
 			if (fb[i] < 200)
-				fb[i] += 1;
+				fb[i] += 8;
 			draw();
 			if ((delay & 3) == 0)
-				decay(1);
+				decay(6);
 		}
 	}
 }
