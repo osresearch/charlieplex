@@ -114,13 +114,13 @@ void chase2()
 {
 	for(uint8_t i = 0 ; i < NUM_LEDS; i++)
 	{
-		for(uint8_t delay = 0 ; delay < 40 ; delay++)
+		for(uint8_t delay = 0 ; delay < 30 ; delay++)
 		{
 			if (fb[i] < 200)
-				fb[i] += 8;
+				fb[i] += 16;
 			draw();
 			if ((delay & 3) == 0)
-				decay(6);
+				decay(8);
 		}
 	}
 }
